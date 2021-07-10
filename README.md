@@ -51,7 +51,7 @@ Then after you have updated the environment with some packages, save the new upd
 $ conda env export > environment.yml
 ```
 
-#### Updating Crossplatform environment file
+#### Updating Cross-platform environment file
 
 First make sure the environment is active by running 
 ```bash
