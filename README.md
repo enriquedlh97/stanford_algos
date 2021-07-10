@@ -1,5 +1,5 @@
 # ucsd_algos
-Solutions and tests for challenges from the UCSD algorithms and data structures specialization
+Solutions and tests for challenges from the Stanford algorithms specialization
 
 ## Getting Started
 
@@ -13,7 +13,7 @@ To get a working environment there are two possible options.
 
 ```
 python 3.8.5
-unittest2 1.1.0
+pytest
 ```
 
 ### Installation
@@ -43,7 +43,7 @@ There are two environment files available, the first one is for creating an envi
 
 First make sure the environment is active by running 
 ```bash
-$ conda activate ucsd_algos
+$ conda activate stanford_algos
 ```
 
 Then after you have updated the environment with some packages, save the new updated environment and override the previous .yml file. To do this, run the following.
@@ -55,7 +55,7 @@ $ conda env export > environment.yml
 
 First make sure the environment is active by running 
 ```bash
-$ conda activate ucsd_algos
+$ conda activate stanford_algos
 ```
 
 Then after you have updated the environment with some packages, save the new updated environment and override the previous .yml file. To do this, run the following.
@@ -89,11 +89,15 @@ Note: For more information on PYTHONPATH and how to set it permanently see [this
 ## Tests
 For running all tests write:
 ```
-python -m unittest discover tests
+pytest tests
 ```
 For running some specific tests write (e.g. two_number_sum):
 ```
-python tests/test_sum_of_two_digits.py
+pytest tests/test_two_number_sum.py
+```
+For omitting a particular test, go to the file containing the test and add the following decorator to the test function:
+```
+@pytest.mark.skip(reason="Should not be run because...")
 ```
 
 ## Note on .gitignore
