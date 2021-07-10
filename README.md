@@ -1,4 +1,4 @@
-# ucsd_algos
+# stanford_algos
 Solutions and tests for challenges from the Stanford algorithms specialization
 
 ## Getting Started
@@ -13,7 +13,7 @@ To get a working environment there are two possible options.
 
 ```
 python 3.8.5
-pytest
+pytest 6.2.4
 ```
 
 ### Installation
