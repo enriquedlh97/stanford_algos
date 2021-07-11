@@ -26,7 +26,7 @@ $ conda env create -f environment.yml
 
 Make sure you activate the environment. 
 ```bash
-$ conda activate ucsd_algos
+$ conda activate stanford_algos
 ```
 
 And verify that it was properly installed.
@@ -60,7 +60,7 @@ $ conda activate stanford_algos
 
 Then after you have updated the environment with some packages, save the new updated environment and override the previous .yml file. To do this, run the following.
 ```bash
-$ conda env export -n ucsd_algos -f environment_no_builds.yml --no-builds
+$ conda env export -n stanford_algos -f environment_no_builds.yml --no-builds
 ```
 
 ### Setting up the PYTHONPATH
