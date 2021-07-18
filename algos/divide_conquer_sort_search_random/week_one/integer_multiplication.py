@@ -28,13 +28,55 @@ Assignment:
 """
 
 
-def grade_school_integer_multiplication():
+def grade_school_integer_multiplication(digit_one, digit_two):
+
+    row_results = get_row_results(digit_one, digit_two)
+
+    final_result = sum_row_results(row_results)
+
+    return final_result
+
+
+def sum_row_results(row_results):
+
+    final_result = []
+
+    for int_idx in reversed(range(len(row_results[-1]))):
+        pass
+        # TODO: Finish implementation of grade school integer multiplication algorithm
+    return int("".join(final_result))
+
+
+def get_row_results(digit_one, digit_two):
+    top_number = "".join(["", max(digit_one, digit_two)])
+    bottom_number = "".join(["", min(digit_one, digit_two)])
+
+    row_results_array = []
+
+    for bottom_idx in range(len(bottom_number)):
+        row_result = initialize_row_results(bottom_idx)
+        remainder = 0
+        for top_idx in range(len(top_number)):
+            result = "".join(["", bottom_number[bottom_idx] * top_number[top_idx] + remainder])
+            row_result.insert(0, result[-1])
+            remainder = result[:-1]
+
+        row_results_array.append(row_result)
+
+    return row_results_array
+
+
+def initialize_row_results(zero_padding):
+    row_result = []
+    for _ in range(zero_padding):
+        row_result.append("0")
+
+    return row_result
+
+
+def recursive_integer_multiplication(digit_one, digit_two):
     pass
 
 
-def recursive_integer_multiplication():
-    pass
-
-
-def karatsuba_integer_multiplication():
+def karatsuba_integer_multiplication(digit_one, digit_two):
     pass
