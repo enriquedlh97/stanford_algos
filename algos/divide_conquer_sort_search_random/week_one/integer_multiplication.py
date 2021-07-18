@@ -57,9 +57,9 @@ def get_row_results(digit_one, digit_two):
         row_result = initialize_row_results(bottom_idx)
         remainder = 0
         for top_idx in range(len(top_number)):
-            result = "".join(["", bottom_number[bottom_idx] * top_number[top_idx] + remainder])
+            result = "".join(["", int(bottom_number[bottom_idx]) * int(top_number[top_idx]) + remainder])
             row_result.insert(0, result[-1])
-            remainder = result[:-1]
+            remainder = int(result[:-1])
 
         row_results_array.append(row_result)
 
