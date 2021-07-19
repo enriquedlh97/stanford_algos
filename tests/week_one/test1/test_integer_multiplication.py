@@ -42,6 +42,6 @@ def test_initialize_row_results(zero_padding, answer):
     assert initialize_row_results(zero_padding) == answer
 
 
-@pytest.mark.parametrize("digit_one, digit_two, answer", tests_initialize_row_results)
+@pytest.mark.parametrize("digit_one, digit_two, answer", tests_get_row_results)
 def test_get_row_results(digit_one, digit_two, answer):
     assert get_row_results(digit_one, digit_two) == answer
