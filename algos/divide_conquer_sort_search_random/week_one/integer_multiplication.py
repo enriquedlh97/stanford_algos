@@ -88,16 +88,32 @@ def get_row_results(digit_one, digit_two):
     :param digit_two: Integer value
     :return: Two-dimensional array containing the results of each row of the product
     """
+    # Casting an integer to a string takes O(s) time, where s is the number of characters in the digit.
+    # Since the concatenation is executed for just two elements (the digit as a string and the "") it will take
+    # O(1) time. This applies for both the top and bottom numbers.
     top_number = "".join(["", str(max(digit_one, digit_two))])
     bottom_number = "".join(["", str(min(digit_one, digit_two))])
 
     row_results_array = []
 
+    # The outer loop iterates over each element from the bottom digit, taking O(b) time, where b is the number of
+    # elements int he bottom digit
     for bottom_idx in reversed(range(len(bottom_number))):
+        # Here the helper function for initializing the row results is called. This function takes O(z) time and space,
+        # where z is the number of zeroes to be added. z = O(b) since z can be computed as b - 1
         row_result = initialize_row_results(len(bottom_number) - (bottom_idx + 1))
         remainder = 0
+        # The inner loop iterates over each element from the top digit, taking O(t) time, where t is the number of
+        # elements in the top digit
         for top_idx in reversed(range(len(top_number))):
+            # Casting an integer to a string takes O(p) time, where p is the number of characters in the digit resulting
+            # from the product. In this case, since only single digits are multiplied, this step takes O(1) time
+            # Since the concatenation is executed for just two elements (the digit as a string and the "") it will take
+            # O(1) time.
             result = "".join(["", str(int(bottom_number[bottom_idx]) * int(top_number[top_idx]) + remainder)])
+            # The insertion method in python takes O(l) time, where l is the length of the array. To improve this to
+            # constant time it would be better to use the collections.deque which is implemented as a doubly linked
+            # list, essentially making the insertion at the front process an O(1) time operation.
             row_result.insert(0, result[-1])
 
             if result[:-1]:
