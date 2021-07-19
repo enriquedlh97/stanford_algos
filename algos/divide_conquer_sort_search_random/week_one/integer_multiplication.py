@@ -31,6 +31,8 @@ Assignment:
 def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
     """ Grade school integer multiplication algorithm, brute force approach
 
+
+
     :param digit_one: Integer value
     :param digit_two: Integer value
     :return: Integer value corresponding to the product of digit_one and digit_two
@@ -45,6 +47,8 @@ def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
 
 def sum_row_results(row_results):
     """ Helper function to compute the overall row sum
+
+
 
     :param row_results: Two-dimensional array containing the results of each row of the product.
     :return: Final product resulting from summing the elements from each row in the row_results array.
@@ -78,6 +82,8 @@ def sum_row_results(row_results):
 def get_row_results(digit_one, digit_two):
     """ Helper function to compute row results
 
+
+
     :param digit_one: Integer value
     :param digit_two: Integer value
     :return: Two-dimensional array containing the results of each row of the product
@@ -107,8 +113,50 @@ def get_row_results(digit_one, digit_two):
     return row_results_array
 
 
+# Time: O(z), where z is the number of zeroes to be added
+# Space: O(z)
 def initialize_row_results(zero_padding):
     """ Helper function to initialize zeros in row results
+
+    This helper function adds the required zeroes at the end of the initial row result needed for adequately summing all
+    results.
+
+    For example, when multiplying 456 * 123 in the grade school algorithm we would get something as follows:
+
+                                                        4 5 6
+                                                        1 2 3
+                                                    _________
+                                                      1 3 6 8
+                                                      9 1 2
+                                                    4 5 6
+                                                    _________
+                                                    5 6 0 8 8
+
+    What this function does is, it adds the zeroes needed at the end of each row result to be able to directly sum each
+    row. So that we get something like this.
+
+                                                        4 5 6
+                                                        1 2 3
+                                                    _________
+                                                      1 3 6 8
+                                                      9 1 2 0
+                                                    4 5 6 0 0
+                                                    _________
+                                                    5 6 0 8 8
+
+    The important thing is to note that the zeroes are added at the beginning.  So, in this case, three arrays are
+    initialized, each corresponding to the result of each row. The first one ahs no zeroes, the second one has one zero
+    and the third one has two zeroes. So we would get something like this.
+
+                                                row one: []
+                                                row two: ['0']
+                                                row three: ['0', '0']
+
+    The function receives a value indicating the number of zeroes to add to the array. The zeroes are added (as
+    character types) and then each array is returned.
+
+    This algorithm takes O(z) time, where z is the number of zeroes that need to be added. And it also takes O(z) space
+    for the same reason.
 
     :param zero_padding: Integer value corresponding to the number of zeros to add to initial row result.
     :return: Initial empty array containing zeroes.
