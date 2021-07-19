@@ -56,18 +56,25 @@ def sum_row_results(row_results):
 
 
 def get_row_results(digit_one, digit_two):
-    top_number = "".join(["", max(digit_one, digit_two)])
-    bottom_number = "".join(["", min(digit_one, digit_two)])
+    top_number = "".join(["", str(max(digit_one, digit_two))])
+    bottom_number = "".join(["", str(min(digit_one, digit_two))])
 
     row_results_array = []
 
-    for bottom_idx in range(len(bottom_number)):
-        row_result = initialize_row_results(bottom_idx)
+    for bottom_idx in reversed(range(len(bottom_number))):
+        row_result = initialize_row_results(len(bottom_number) - (bottom_idx + 1))
         remainder = 0
-        for top_idx in range(len(top_number)):
-            result = "".join(["", int(bottom_number[bottom_idx]) * int(top_number[top_idx]) + remainder])
+        for top_idx in reversed(range(len(top_number))):
+            result = "".join(["", str(int(bottom_number[bottom_idx]) * int(top_number[top_idx]) + remainder)])
             row_result.insert(0, result[-1])
-            remainder = int(result[:-1])
+
+            if result[:-1]:
+                remainder = int(result[:-1])
+            else:
+                remainder = 0
+
+            if top_idx == 0 and remainder > 0:
+                row_result.insert(0, str(remainder))
 
         row_results_array.append(row_result)
 
