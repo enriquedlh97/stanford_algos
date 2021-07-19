@@ -46,9 +46,6 @@ tests_sum_row_results = [([['1', '3', '6', '8'], ['9', '1', '2', '0'], ['4', '5'
                          ([['0', '0', '0', '0']], 0)
                          ]
 
-tests_integer_multiplication = [(),
-                                ]
-
 
 @pytest.mark.parametrize("zero_padding, answer", tests_initialize_row_results)
 def test_initialize_row_results(zero_padding, answer):
