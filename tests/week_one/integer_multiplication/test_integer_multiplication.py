@@ -11,5 +11,3 @@ tests_integer_multiplication = [(),
 # @pytest.mark.parametrize("zero_padding, answer", tests_integer_multiplication)
 def test_initialize_row_results(zero_padding, answer):
     assert grade_school_integer_multiplication_brute_force(zero_padding) == answer
-
-
