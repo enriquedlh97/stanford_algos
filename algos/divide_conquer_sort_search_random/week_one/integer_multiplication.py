@@ -29,6 +29,12 @@ Assignment:
 
 
 def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
+    """ Grade school integer multiplication algorithm, brute force approach
+
+    :param digit_one: Integer value
+    :param digit_two: Integer value
+    :return: Integer value corresponding to the product of digit_one and digit_two
+    """
 
     row_results = get_row_results(digit_one, digit_two)
 
@@ -38,6 +44,11 @@ def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
 
 
 def sum_row_results(row_results):
+    """ Helper function to compute the overall row sum
+
+    :param row_results: Two-dimensional array containing the results of each row of the product.
+    :return: Final product resulting from summing the elements from each row in the row_results array.
+    """
 
     final_result = []
     remainder = 0
@@ -65,6 +76,12 @@ def sum_row_results(row_results):
 
 
 def get_row_results(digit_one, digit_two):
+    """ Helper function to compute row results
+
+    :param digit_one: Integer value
+    :param digit_two: Integer value
+    :return: Two-dimensional array containing the results of each row of the product
+    """
     top_number = "".join(["", str(max(digit_one, digit_two))])
     bottom_number = "".join(["", str(min(digit_one, digit_two))])
 
@@ -91,6 +108,11 @@ def get_row_results(digit_one, digit_two):
 
 
 def initialize_row_results(zero_padding):
+    """ Helper function to initialize zeros in row results
+
+    :param zero_padding: Integer value corresponding to the number of zeros to add to initial row result.
+    :return: Initial empty array containing zeroes.
+    """
     row_result = []
     for _ in range(zero_padding):
         row_result.append("0")
