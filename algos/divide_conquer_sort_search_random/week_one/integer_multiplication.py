@@ -28,6 +28,14 @@ Assignment:
 """
 
 
+def func1(a, b):
+    return a + b
+
+
+def func2(a, b):
+    return a - b
+
+
 def grade_school_integer_multiplication(digit_one, digit_two):
 
     row_results = get_row_results(digit_one, digit_two)

@@ -1,0 +1,2 @@
+from algos.divide_conquer_sort_search_random.week_one.integer_multiplication import func1
+import pytest
