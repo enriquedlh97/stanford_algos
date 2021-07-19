@@ -7,6 +7,7 @@ tests = [(1, 2, 3),
          ]
 
 
+@pytest.mark.skip(reason="Just a test")
 @pytest.mark.parametrize("a, b, answer", tests)
 def test_func1(a, b, answer):
     assert func1(a, b) == answer
