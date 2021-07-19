@@ -28,7 +28,7 @@ Assignment:
 """
 
 
-def grade_school_integer_multiplication(digit_one, digit_two):
+def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
 
     row_results = get_row_results(digit_one, digit_two)
 
@@ -40,26 +40,50 @@ def grade_school_integer_multiplication(digit_one, digit_two):
 def sum_row_results(row_results):
 
     final_result = []
+    remainder = 0
 
     for int_idx in reversed(range(len(row_results[-1]))):
-        pass
-        # TODO: Finish implementation of grade school integer multiplication algorithm
+        current_digit = 0
+        for row_idx in range(len(row_results)):
+            adjusted_index = int_idx - (len(row_results[-1]) - len(row_results[row_idx]))
+            if adjusted_index >= 0:
+                current_digit += int(row_results[row_idx][adjusted_index]) + remainder
+                remainder = 0
+
+        final_result.insert(0, str(current_digit)[-1])
+        if str(current_digit)[:-1]:
+            remainder = int(str(current_digit)[:-1])
+        else:
+            remainder = 0
+
+        if int_idx == 0 and remainder > 0:
+            final_result.insert(0, str(remainder))
+
+    print(final_result)
+
     return int("".join(final_result))
 
 
 def get_row_results(digit_one, digit_two):
-    top_number = "".join(["", max(digit_one, digit_two)])
-    bottom_number = "".join(["", min(digit_one, digit_two)])
+    top_number = "".join(["", str(max(digit_one, digit_two))])
+    bottom_number = "".join(["", str(min(digit_one, digit_two))])
 
     row_results_array = []
 
-    for bottom_idx in range(len(bottom_number)):
-        row_result = initialize_row_results(bottom_idx)
+    for bottom_idx in reversed(range(len(bottom_number))):
+        row_result = initialize_row_results(len(bottom_number) - (bottom_idx + 1))
         remainder = 0
-        for top_idx in range(len(top_number)):
-            result = "".join(["", int(bottom_number[bottom_idx]) * int(top_number[top_idx]) + remainder])
+        for top_idx in reversed(range(len(top_number))):
+            result = "".join(["", str(int(bottom_number[bottom_idx]) * int(top_number[top_idx]) + remainder)])
             row_result.insert(0, result[-1])
-            remainder = int(result[:-1])
+
+            if result[:-1]:
+                remainder = int(result[:-1])
+            else:
+                remainder = 0
+
+            if top_idx == 0 and remainder > 0:
+                row_result.insert(0, str(remainder))
 
         row_results_array.append(row_result)
 
