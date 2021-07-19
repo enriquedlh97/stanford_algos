@@ -115,7 +115,7 @@ def get_row_results(digit_one, digit_two):
             # constant time it would be better to use the collections.deque which is implemented as a doubly linked
             # list, essentially making the insertion at the front process an O(1) time operation.
             row_result.insert(0, result[-1])
-
+            # TODO: Finish documenting. Include information about python slicing being an O(n^2) operation
             if result[:-1]:
                 remainder = int(result[:-1])
             else:
