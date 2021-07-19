@@ -28,15 +28,7 @@ Assignment:
 """
 
 
-def func1(a, b):
-    return a + b
-
-
-def func2(a, b):
-    return a - b
-
-
-def grade_school_integer_multiplication(digit_one, digit_two):
+def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
 
     row_results = get_row_results(digit_one, digit_two)
 
@@ -48,10 +40,27 @@ def grade_school_integer_multiplication(digit_one, digit_two):
 def sum_row_results(row_results):
 
     final_result = []
+    remainder = 0
 
     for int_idx in reversed(range(len(row_results[-1]))):
-        pass
-        # TODO: Finish implementation of grade school integer multiplication algorithm
+        current_digit = 0
+        for row_idx in range(len(row_results)):
+            adjusted_index = int_idx - (len(row_results[-1]) - len(row_results[row_idx]))
+            if adjusted_index >= 0:
+                current_digit += int(row_results[row_idx][adjusted_index]) + remainder
+                remainder = 0
+
+        final_result.insert(0, str(current_digit)[-1])
+        if str(current_digit)[:-1]:
+            remainder = int(str(current_digit)[:-1])
+        else:
+            remainder = 0
+
+        if int_idx == 0 and remainder > 0:
+            final_result.insert(0, str(remainder))
+
+    print(final_result)
+
     return int("".join(final_result))
 
 
