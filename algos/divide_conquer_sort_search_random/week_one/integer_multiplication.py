@@ -79,6 +79,8 @@ def sum_row_results(row_results):
     return int("".join(final_result))
 
 
+# Time: O(z), where z is the number of zeroes to be added
+# Space: O(z)
 def get_row_results(digit_one, digit_two):
     """ Helper function to compute row results
 
@@ -115,7 +117,9 @@ def get_row_results(digit_one, digit_two):
             # constant time it would be better to use the collections.deque which is implemented as a doubly linked
             # list, essentially making the insertion at the front process an O(1) time operation.
             row_result.insert(0, result[-1])
-            # TODO: Finish documenting. Include information about python slicing being an O(n^2) operation
+            # Slicing a string, in this case result[:-1] is an O(k^2) time operation in python. This could be improved
+            # by just checking if len(result) > 1. Nevertheless, this result is going to have at most 2 elements, making
+            # the this an O(1) time operation
             if result[:-1]:
                 remainder = int(result[:-1])
             else:
