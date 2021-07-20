@@ -221,11 +221,13 @@ def recursive_integer_multiplication(digit_one, digit_two):
     digit_one = str(digit_one)
     digit_two = str(digit_two)
 
+    # Define exponent n
+    n = max(len(str(digit_one)), len(str(digit_two)))
+
     # Handle base case when both digit_one and digit_two are single number digits
     if len(digit_one) == len(digit_two) == 1:
         return int(digit_one) * int(digit_two)
 
-    # @TODO: Fix bug here
     # Define x in terms of a and b
     a, b = split_digit(digit_one)
     # Define y in terms of c and d
@@ -239,18 +241,21 @@ def recursive_integer_multiplication(digit_one, digit_two):
     # Compute b * d
     bd = recursive_integer_multiplication(b, d)
     # Compute x * y
-    xy = ac + (ad + bc) + bd
+    xy = pow(10, n) * ac + pow(10, n // 2) * (ad + bc) + bd
 
     return xy
 
 
 def split_digit(number):
-
     # Get number of digits in right side
     right_size = len(number) // 2
     # Get right and left numbers
-    right_number = int(str(number)[-right_size:])
-    left_number = int(str(number)[:-right_size]) * pow(10, right_size)
+    if right_size == 0:
+        right_number = int(number)
+        left_number = 0
+    else:
+        right_number = int(str(number)[-right_size:])
+        left_number = int(str(number)[:-right_size])
 
     return left_number, right_number
 
@@ -263,3 +268,20 @@ def karatsuba_integer_multiplication(digit_one, digit_two):
     # 5.1 Pad result from each step with zeroes
     # 5.2 Add padded results
     pass
+
+
+if __name__ == "__main__":
+    tests_integer_multiplication = [
+                                    (3141592653589793238462643383279502884197169399375105820974944592,
+                                     2718281828459045235360287471352662497757247093699959574966967627,
+                                     8539734222673567065463550869546574495034888535765114961879601127067743044893204848617875072216249073013374895871952806582723184)
+                                    ]
+
+    for test_num, test in enumerate(tests_integer_multiplication):
+        digit_one, digit_two, answer = test[0], test[1], test[2]
+        result = recursive_integer_multiplication(digit_one, digit_two)
+
+        if result == answer:
+            print("Test {}: Passed".format(test_num))
+        else:
+            print("Test {}: Failed".format(test_num))
