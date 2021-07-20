@@ -79,12 +79,22 @@ def sum_row_results(row_results):
     return int("".join(final_result))
 
 
-# Time: O(z), where z is the number of zeroes to be added
-# Space: O(z)
+# Time: O(b * t), where b is the number of digits in the bottom number and t the number of digits in the top number
+# Space: O(b * t)
 def get_row_results(digit_one, digit_two):
     """ Helper function to compute row results
 
+    This helper function works by iterating first over each number of the bottom digit. Because of how the algorithm is
+    set up, the bottom digit is always going to be bigger than the top digit. Then, for each number in the bottom digit,
+    the algorithm iterates over each number in the top digit.
 
+    At each step from the outer loop, the row solution is initialized with the corresponding zeroes. Then at each step
+    of the inner loop, the current number from the bottom digit is multiplied with the current number from the top
+    digit. This is just a single digit multiplication. The "units" or right most number from this result is added ti the
+    rwo results array, the left most element or number that are not apr of the units are saved as remainder to be added
+    in the next product.
+
+    When both for loops are over, the two-dimensional array row_results_Array contains the row solutions and is returned
 
     :param digit_one: Integer value
     :param digit_two: Integer value
