@@ -18,7 +18,12 @@ tests_integer_multiplication = [(123, 456, 56088),
                                  8539734222673567065463550869546574495034888535765114961879601127067743044893204848617875072216249073013374895871952806582723184)
                                 ]
 
-
+@pytest.mark.skip(reason="Should not be run because...")
 @pytest.mark.parametrize("digit_one, digit_two, answer", tests_integer_multiplication)
 def test_grade_school_integer_multiplication_brute_force(digit_one, digit_two, answer):
     assert grade_school_integer_multiplication_brute_force(digit_one, digit_two) == answer
+
+
+@pytest.mark.parametrize("digit_one, digit_two, answer", tests_integer_multiplication)
+def test_recursive_integer_multiplication(digit_one, digit_two, answer):
+    assert recursive_integer_multiplication(digit_one, digit_two) == answer
