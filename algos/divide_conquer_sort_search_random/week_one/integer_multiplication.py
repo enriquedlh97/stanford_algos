@@ -224,6 +224,8 @@ def recursive_integer_multiplication(digit_one, digit_two):
     # Handle base case when both digit_one and digit_two are single number digits
     if len(digit_one) == len(digit_two) == 1:
         return int(digit_one) * int(digit_two)
+
+    # @TODO: Fix bug here
     # Define x in terms of a and b
     a, b = split_digit(digit_one)
     # Define y in terms of c and d
