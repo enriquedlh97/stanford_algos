@@ -28,27 +28,36 @@ Assignment:
 """
 
 
+# Time: O(b * t), where b is the number of digits in the bottom number and t the number of digits in the top number
+# Space: O(b * t)
 def grade_school_integer_multiplication_brute_force(digit_one, digit_two):
     """ Grade school integer multiplication algorithm, brute force approach
 
-
+    This is the main function fo the grade school integer multiplication algorithm. It essentially just calls helper
+    functions to handle all the computations.
 
     :param digit_one: Integer value
     :param digit_two: Integer value
     :return: Integer value corresponding to the product of digit_one and digit_two
     """
 
+    # Time: O(b * t), where b is the number of digits in the bottom number and t the number of digits in the top number
+    # Space: O(b * t)
     row_results = get_row_results(digit_one, digit_two)
 
+    # Time: O(b * t), where b is the number of digits in the bottom number and t the number of digits in the top number
+    # Space: O(b * t)
     final_result = sum_row_results(row_results)
 
     return final_result
 
 
+# Time: O(b * t), where b is the number of digits in the bottom number and t the number of digits in the top number
+# Space: O(b * t)
 def sum_row_results(row_results):
     """ Helper function to compute the overall row sum
 
-
+    This helper function sums the numbers contain in each row array, resulting in the final product.
 
     :param row_results: Two-dimensional array containing the results of each row of the product.
     :return: Final product resulting from summing the elements from each row in the row_results array.
@@ -57,32 +66,53 @@ def sum_row_results(row_results):
     final_result = []
     remainder = 0
 
+    # This for loop takes O(t) time, where t is the number of elements in the top digit
     for int_idx in reversed(range(len(row_results[-1]))):
         current_digit = 0
+        # This inner for loop takes O(b) time, where b is the number of elements in the bottom digit, corresponding to
+        # the total number fo rows
         for row_idx in range(len(row_results)):
+            # The index is adjusted so that the same value can be applied to all rows and be a valid index
             adjusted_index = int_idx - (len(row_results[-1]) - len(row_results[row_idx]))
             if adjusted_index >= 0:
                 current_digit += int(row_results[row_idx][adjusted_index]) + remainder
                 remainder = 0
 
+        # The insertion method in python takes O(l) time, where l is the length of the array. To improve this to
+        # constant time it would be better to use the collections.deque which is implemented as a doubly linked
+        # list, essentially making the insertion at the front an O(1) time operation.
         final_result.insert(0, str(current_digit)[-1])
+        # Slicing a string, in this case result[:-1] is an O(k^2) time operation in python. This could be improved
+        # by just checking if len(result) > 1. Nevertheless, this result is going to have at most 2 elements, making
+        # this an O(1) time operation
         if str(current_digit)[:-1]:
             remainder = int(str(current_digit)[:-1])
         else:
             remainder = 0
 
+        # This makes sure that the last remainder for the las row in the row_Results_array is added to the final result
         if int_idx == 0 and remainder > 0:
             final_result.insert(0, str(remainder))
-
-    print(final_result)
 
     return int("".join(final_result))
 
 
+# Time: O(b * t), where b is the number of digits in the bottom number and t the number of digits in the top number
+# Space: O(b * t)
 def get_row_results(digit_one, digit_two):
     """ Helper function to compute row results
 
+    This helper function works by iterating first over each number of the bottom digit. Because of how the algorithm is
+    set up, the bottom digit is always going to be bigger than the top digit. Then, for each number in the bottom digit,
+    the algorithm iterates over each number in the top digit.
 
+    At each step from the outer loop, the row solution is initialized with the corresponding zeroes. Then at each step
+    of the inner loop, the current number from the bottom digit is multiplied with the current number from the top
+    digit. This is just a single digit multiplication. The "units" or right most number from this result is added ti the
+    rwo results array, the left most element or number that are not apr of the units are saved as remainder to be added
+    in the next product.
+
+    When both for loops are over, the two-dimensional array row_results_Array contains the row solutions and is returned
 
     :param digit_one: Integer value
     :param digit_two: Integer value
@@ -115,7 +145,9 @@ def get_row_results(digit_one, digit_two):
             # constant time it would be better to use the collections.deque which is implemented as a doubly linked
             # list, essentially making the insertion at the front process an O(1) time operation.
             row_result.insert(0, result[-1])
-            # TODO: Finish documenting. Include information about python slicing being an O(n^2) operation
+            # Slicing a string, in this case result[:-1] is an O(k^2) time operation in python. This could be improved
+            # by just checking if len(result) > 1. Nevertheless, this result is going to have at most 2 elements, making
+            # this an O(1) time operation
             if result[:-1]:
                 remainder = int(result[:-1])
             else:
@@ -185,8 +217,49 @@ def initialize_row_results(zero_padding):
 
 
 def recursive_integer_multiplication(digit_one, digit_two):
-    pass
+    # Cast digits to strings
+    digit_one = str(digit_one)
+    digit_two = str(digit_two)
+
+    # Handle base case when both digit_one and digit_two are single number digits
+    if len(digit_one) == len(digit_two) == 1:
+        return int(digit_one) * int(digit_two)
+
+    # @TODO: Fix bug here
+    # Define x in terms of a and b
+    a, b = split_digit(digit_one)
+    # Define y in terms of c and d
+    c, d = split_digit(digit_two)
+    # Compute a * c
+    ac = recursive_integer_multiplication(a, c)
+    # Compute a * d
+    ad = recursive_integer_multiplication(a, d)
+    # Compute b * c
+    bc = recursive_integer_multiplication(b, c)
+    # Compute b * d
+    bd = recursive_integer_multiplication(b, d)
+    # Compute x * y
+    xy = ac + (ad + bc) + bd
+
+    return xy
+
+
+def split_digit(number):
+
+    # Get number of digits in right side
+    right_size = len(number) // 2
+    # Get right and left numbers
+    right_number = int(str(number)[-right_size:])
+    left_number = int(str(number)[:-right_size]) * pow(10, right_size)
+
+    return left_number, right_number
 
 
 def karatsuba_integer_multiplication(digit_one, digit_two):
+    # 1. Compute a * c
+    # 2. Compute b * d
+    # 3. Compute (a + b) * (c + d)
+    # 4. Compute 3. - 2. - 1.
+    # 5.1 Pad result from each step with zeroes
+    # 5.2 Add padded results
     pass
