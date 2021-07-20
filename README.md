@@ -88,11 +88,11 @@ Note: For more information on PYTHONPATH and how to set it permanently see [this
 ## Tests
 For running all tests write:
 ```
-pytest tests
+pytest
 ```
 For running some specific tests write (e.g. two_number_sum):
 ```
-pytest tests/test_two_number_sum.py
+pytest tests/divide_conquer_sort_search_random/week_one/integer_multiplication/test_integer_multiplication.py
 ```
 For omitting a particular test, go to the file containing the test and add the following decorator to the test function:
 ```
