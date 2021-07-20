@@ -217,8 +217,47 @@ def initialize_row_results(zero_padding):
 
 
 def recursive_integer_multiplication(digit_one, digit_two):
-    pass
+    # Cast digits to strings
+    digit_one = str(digit_one)
+    digit_two = str(digit_two)
+
+    # Handle base case when both digit_one and digit_two are single number digits
+    if len(digit_one) == len(digit_two) == 1:
+        return int(digit_one) * int(digit_two)
+    # Define x in terms of a and b
+    a, b = split_digit(digit_one)
+    # Define y in terms of c and d
+    c, d = split_digit(digit_two)
+    # Compute a * c
+    ac = recursive_integer_multiplication(a, c)
+    # Compute a * d
+    ad = recursive_integer_multiplication(a, d)
+    # Compute b * c
+    bc = recursive_integer_multiplication(b, c)
+    # Compute b * d
+    bd = recursive_integer_multiplication(b, d)
+    # Compute x * y
+    xy = ac + (ad + bc) + bd
+
+    return xy
+
+
+def split_digit(number):
+
+    # Get number of digits in right side
+    right_size = len(number) // 2
+    # Get right and left numbers
+    right_number = int(str(number)[-right_size:])
+    left_number = int(str(number)[:-right_size]) * pow(10, right_size)
+
+    return left_number, right_number
 
 
 def karatsuba_integer_multiplication(digit_one, digit_two):
+    # 1. Compute a * c
+    # 2. Compute b * d
+    # 3. Compute (a + b) * (c + d)
+    # 4. Compute 3. - 2. - 1.
+    # 5.1 Pad result from each step with zeroes
+    # 5.2 Add padded results
     pass

@@ -1,3 +1,8 @@
+"""
+This file tests the helper functions used in the grade school integer multiplication algorithm. The main function is
+tested in the test_integer_multiplication.py file, where all main algorithms are tested.
+"""
+
 import pytest
 from algos.divide_conquer_sort_search_random.week_one.integer_multiplication import initialize_row_results, \
     get_row_results, sum_row_results
