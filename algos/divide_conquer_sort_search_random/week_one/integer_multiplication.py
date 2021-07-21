@@ -217,6 +217,7 @@ def initialize_row_results(zero_padding):
     return row_result
 
 
+# @ TODO: Compute time and space complexity of recursive int multiplication
 def recursive_integer_multiplication(digit_one, digit_two):
     """ Recursive integer multiplication
 
@@ -239,16 +240,17 @@ def recursive_integer_multiplication(digit_one, digit_two):
     :param digit_two: Integer
     :return: Integer corresponding to the product of the two input digits
     """
-    # Cast digits to strings
+    # Cast digits to strings. Casting to string takes O(n) time, where n is the length of the digit
     digit_one = str(digit_one)
     digit_two = str(digit_two)
 
-    # Define exponent n
-    n = max(len(str(digit_one)), len(str(digit_two)))
+    # Define exponent n.
+    n = max(len(digit_one), len(digit_two))
 
     # Handle base case when both digit_one and digit_two are single number digits. For more information see
     # https://stackoverflow.com/questions/35180377/time-complexity-of-string-slice/35181399
     if len(digit_one) == len(digit_two) == 1:
+        # Casting to int takes O(n) time, where n is the length of the digit
         return int(digit_one) * int(digit_two)
 
     # Define x in terms of a and b. This is an O(n^2) time operation
