@@ -295,7 +295,15 @@ def split_digit(number):
     return left_number, right_number
 
 
+# @TODO: Finish documentation for karatsuba
+# @ TODO: Compute time and space complexity of karatsuba
 def karatsuba_integer_multiplication(digit_one, digit_two):
+    """
+
+    :param digit_one:
+    :param digit_two:
+    :return:
+    """
     # Handle base case
     if digit_one < 10 and digit_two < 10:
         return digit_one * digit_two
