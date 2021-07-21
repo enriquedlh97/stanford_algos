@@ -147,7 +147,8 @@ def get_row_results(digit_one, digit_two):
             row_result.insert(0, result[-1])
             # Slicing a string, in this case result[:-1] is an O(k^2) time operation in python. This could be improved
             # by just checking if len(result) > 1. Nevertheless, this result is going to have at most 2 elements, making
-            # this an O(1) time operation
+            # this an O(1) time operation. For more information see
+            # https://stackoverflow.com/questions/35180377/time-complexity-of-string-slice/35181399
             if result[:-1]:
                 remainder = int(result[:-1])
             else:
@@ -217,6 +218,27 @@ def initialize_row_results(zero_padding):
 
 
 def recursive_integer_multiplication(digit_one, digit_two):
+    """ Recursive integer multiplication
+
+    This algorithm works by dividing the digit_one into  a and b, which essentially represent the left and right halves
+    of the number. The same is done for the second digit where it is divided into b and c.
+
+    Then, the products a * c, a * d, b * c and b * d are computed.
+
+    Finally, the resulting product is computing using the following formula:
+
+    10^(n) * ac + 10^(n/2) * (ad + bc) + bd
+
+    Here, n is the number of digits that the input number have. For that reason, the algorithm only works for input
+    digits that are a power of 2 and both input digits have to be of the same size.
+
+    The algorithm is called recursively on the  a * c, a * d, b * c and b * d until only single-digit products are being
+    computed.
+
+    :param digit_one: Integer
+    :param digit_two: Integer
+    :return: Integer corresponding to the product of the two input digits
+    """
     # Cast digits to strings
     digit_one = str(digit_one)
     digit_two = str(digit_two)
@@ -224,13 +246,14 @@ def recursive_integer_multiplication(digit_one, digit_two):
     # Define exponent n
     n = max(len(str(digit_one)), len(str(digit_two)))
 
-    # Handle base case when both digit_one and digit_two are single number digits
+    # Handle base case when both digit_one and digit_two are single number digits. For more information see
+    # https://stackoverflow.com/questions/35180377/time-complexity-of-string-slice/35181399
     if len(digit_one) == len(digit_two) == 1:
         return int(digit_one) * int(digit_two)
 
-    # Define x in terms of a and b
+    # Define x in terms of a and b. This is an O(n^2) time operation
     a, b = split_digit(digit_one)
-    # Define y in terms of c and d
+    # Define y in terms of c and d. This is an O(n^2) time operation
     c, d = split_digit(digit_two)
     # Compute a * c
     ac = recursive_integer_multiplication(a, c)
@@ -246,7 +269,16 @@ def recursive_integer_multiplication(digit_one, digit_two):
     return xy
 
 
+# Time: O(n^2), where n is the number of digits in the input number
+# Space: O(n), this is because copies are created
 def split_digit(number):
+    """ Helper function to split numbers
+
+    This helper function is used to split a number in half
+
+    :param number: Integer to be split
+    :return: Input integer split in half, returns left_number and right_number
+    """
     # Get number of digits in right side
     right_size = len(number) // 2
     # Get right and left numbers
@@ -254,6 +286,7 @@ def split_digit(number):
         right_number = int(number)
         left_number = 0
     else:
+        # Slicing a string is an O(n^2) time operation in python where n is the length of the string.
         right_number = int(str(number)[-right_size:])
         left_number = int(str(number)[:-right_size])
 
