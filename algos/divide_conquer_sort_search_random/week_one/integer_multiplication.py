@@ -295,14 +295,48 @@ def split_digit(number):
     return left_number, right_number
 
 
+# @TODO: Finish documentation for karatsuba
+# @ TODO: Compute time and space complexity of karatsuba
 def karatsuba_integer_multiplication(digit_one, digit_two):
-    # 1. Compute a * c
-    # 2. Compute b * d
+    """
+
+    :param digit_one:
+    :param digit_two:
+    :return:
+    """
+    # Handle base case
+    if digit_one < 10 and digit_two < 10:
+        return digit_one * digit_two
+
+    # Get exponent
+    n = max(len(str(digit_one)), len(str(digit_two)))
+
+    # Define function for handling odd exponent n
+    nby2 = round(n / 2)
+
+    # Get a, b, c and d
+    a = digit_one // (10 ** nby2)
+    b = digit_one % (10 ** nby2)
+
+    c = digit_two // (10 ** nby2)
+    d = digit_two % (10 ** nby2)
+
+    # 1. Compute a * c, this is computed recursively
+    ac = karatsuba_integer_multiplication(a, c)
+
+    # 2. Compute b * d, this is computed recursively
+    bd = karatsuba_integer_multiplication(b, d)
+
     # 3. Compute (a + b) * (c + d)
-    # 4. Compute 3. - 2. - 1.
-    # 5.1 Pad result from each step with zeroes
-    # 5.2 Add padded results
-    pass
+    ab_times_cd = karatsuba_integer_multiplication(a + b, c + d)
+
+    # 4. Compute 3. - 2. - 1. = ad + bc
+    ad_plus_bc = ab_times_cd - bd - ac
+
+    # 5. Execute 10^(n) * ac + 10^(n/2) * (ad + bc) + bd
+    result = (10 ** (2 * nby2)) * ac + (10 ** nby2) * ad_plus_bc + bd
+
+    return result
 
 
 if __name__ == "__main__":

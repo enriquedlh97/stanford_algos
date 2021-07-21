@@ -44,3 +44,8 @@ def test_grade_school_integer_multiplication_brute_force(digit_one, digit_two, a
 @pytest.mark.parametrize("digit_one, digit_two, answer", tests_recursive_integer_multiplication)
 def test_recursive_integer_multiplication(digit_one, digit_two, answer):
     assert recursive_integer_multiplication(digit_one, digit_two) == answer
+
+
+@pytest.mark.parametrize("digit_one, digit_two, answer", tests_grade_school_integer_multiplication)
+def test_karatsuba_integer_multiplication(digit_one, digit_two, answer):
+    assert karatsuba_integer_multiplication(digit_one, digit_two) == answer
